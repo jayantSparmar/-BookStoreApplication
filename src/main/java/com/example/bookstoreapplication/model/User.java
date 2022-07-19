@@ -1,20 +1,23 @@
 package com.example.bookstoreapplication.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Stores user info
+ **/
 @Entity
-@Table(name = "userDetail")
+@Table(name = "UserData")
 @Data
+@AllArgsConstructor(staticName = "Build")
 @NoArgsConstructor
 public class User {
+
     @Id
     private int userId;
     private String name;
@@ -22,22 +25,9 @@ public class User {
     private String emailId;
     private String password;
     private String city;
-    private String country;
-    private long zipCode;
+    private String state;
+    private int zipCode;
     private String address;
     @ManyToMany
     private List<Book> books = new ArrayList<>();
-
-    public User(int userId, String name, String mobileNo, String emailId, String password, String city, String country, long zipCode, String address, List<Book> books) {
-        this.userId = userId;
-        this.name = name;
-        this.mobileNo = mobileNo;
-        this.emailId = emailId;
-        this.password = password;
-        this.city = city;
-        this.country = country;
-        this.zipCode = zipCode;
-        this.address = address;
-        this.books = books;
-    }
 }

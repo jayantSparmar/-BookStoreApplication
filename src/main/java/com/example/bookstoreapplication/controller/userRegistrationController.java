@@ -14,6 +14,7 @@ import javax.validation.Valid;
 /**
  * UserRegistration controller for taking api calls for user registration and user data management
  **/
+@CrossOrigin(origins = "http://localhost:50535")
 @RestController
 @RequestMapping("/register")
 public class userRegistrationController {
@@ -24,28 +25,28 @@ public class userRegistrationController {
     //----------------------------Registering user------------------------------//
     @PostMapping("/add")
     public ResponseEntity<ResponseDTO> registerUser(@RequestBody @Valid UserRegistrationDTO userRegDTO) {
-        ResponseDTO responseDTO = new ResponseDTO("User registration successful", userService.addUser(userRegDTO));
+        ResponseDTO responseDTO = ResponseDTO.Build("User registration successful", userService.addUser(userRegDTO));
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 
     //---------------------------Viewing all users----------------------------//
     @GetMapping("/view")
     public ResponseEntity<ResponseDTO> getUsers() {
-        ResponseDTO responseDTO = new ResponseDTO("View all registered users", userService.getUsers());
+        ResponseDTO responseDTO = ResponseDTO.Build("View all registered users", userService.getUsers());
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 
     //-------------------------View user by userId----------------------------//
     @GetMapping("/view/{userId}")
     public ResponseEntity<ResponseDTO> getUserById(@PathVariable int userId) throws UserNotFoundException {
-        ResponseDTO responseDTO = new ResponseDTO("View user by id: " + userId, userService.getUserById(userId));
+        ResponseDTO responseDTO = ResponseDTO.Build("View user by id: " + userId, userService.getUserById(userId));
         return new ResponseEntity<>(responseDTO,HttpStatus.OK);
     }
 
     //----------------------update user by userId----------------------------//
     @PutMapping("/update/{userId}")
     public ResponseEntity<ResponseDTO> updateUserById(@PathVariable int userId, @RequestBody @Valid UserRegistrationDTO userRegistrationDTO) throws UserNotFoundException {
-        ResponseDTO responseDTO = new ResponseDTO("Updated user by id: " + userId, userService.updateUserById(userId,userRegistrationDTO));
+        ResponseDTO responseDTO = ResponseDTO.Build("Updated user by id: " + userId, userService.updateUserById(userId,userRegistrationDTO));
         return new ResponseEntity<>(responseDTO,HttpStatus.OK);
     }
 

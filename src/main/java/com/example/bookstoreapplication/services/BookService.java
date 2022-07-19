@@ -28,7 +28,7 @@ public class BookService implements IBookService {
         return book;
     }
           public Book addBook(BookDTO booksDTO) {
-            Book book = new Book(bookRepository.findAll().size()+1,booksDTO.getBookName(), booksDTO.getAuthor(), booksDTO.getBookPrize());
+            Book book = Book.Build(bookRepository.findAll().size()+1,booksDTO.getBookName(), booksDTO.getAuthor(), booksDTO.getBookPrize());
               return bookRepository.save(book);
 
 

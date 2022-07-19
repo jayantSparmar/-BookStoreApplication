@@ -1,6 +1,6 @@
 package com.example.bookstoreapplication.services;
 
-
+import com.example.bookstoreapplication.dto.OrderDTO;
 import com.example.bookstoreapplication.email.EmailSender;
 import com.example.bookstoreapplication.exception.BookNotFoundException;
 import com.example.bookstoreapplication.exception.BookOutOfStockException;
@@ -13,8 +13,6 @@ import com.example.bookstoreapplication.repository.BookStocksRepository;
 import com.example.bookstoreapplication.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-
 
 /**
  * Business logic for placing order
@@ -34,7 +32,7 @@ public class OrderService implements IOrderService {
     @Autowired
     private IBookService bookService;
 
-   @Autowired
+    @Autowired
     private EmailSender emailSender;
 
     @Override
@@ -43,7 +41,7 @@ public class OrderService implements IOrderService {
         User user = userService.getUserById(userId);
         removeFromStock(book,user);
         Order order = Order.Build(orderRepository.findAll().size() + 1, user.getName(),book.getBookName(), 1);
-       sendOrderMail(order, user);
+        sendOrderMail(order, user);
         return orderRepository.save(order);
     }
 

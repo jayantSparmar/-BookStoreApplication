@@ -8,6 +8,11 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+
+/**
+ * Data transfer object for user registration details
+ * Generating getters,setters and constructors using lombook
+ **/
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -31,12 +36,11 @@ public class UserRegistrationDTO {
     private String city;
 
     @NotNull
-    private String country;
+    private String state;
 
     @NotNull
-    private long zipCode;
+    private int zipCode;
 
     @NotNull
     private String address;
-
 }

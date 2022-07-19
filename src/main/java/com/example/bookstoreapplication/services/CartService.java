@@ -24,7 +24,7 @@ public class CartService implements ICartService{
     private IUserService userService;
 
     @Override
-    public User addToCart(int userId, int bookId) throws UserNotFoundException, BookNotFoundException {
+    public User addToCart(int bookId, int userId) throws UserNotFoundException, BookNotFoundException {
         Book book = bookService.getBookByBookId(bookId);
         User user = userService.getUserById(userId);
 
@@ -33,7 +33,7 @@ public class CartService implements ICartService{
     }
 
     @Override
-    public User removeFromCart(int userId, int bookId) throws BookNotFoundException, UserNotFoundException {
+    public User removeFromCart(int bookId, int userId) throws BookNotFoundException, UserNotFoundException {
         Book book = bookService.getBookByBookId(bookId);
         User user = userService.getUserById(userId);
 

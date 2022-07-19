@@ -20,18 +20,18 @@ public class UserService implements IUserService {
     private UserRepository userRepository;
 
     @Autowired
-  private EmailSender emailSender;
+    private EmailSender emailSender;
 
     @Override
     public User addUser(UserRegistrationDTO userRegDTO) {
-        User user = new User(userRepository.findAll().size() + 1, userRegDTO.getName(), userRegDTO.getMobileNo(),
-                userRegDTO.getEmailId(), userRegDTO.getPassword(),userRegDTO.getCity(), userRegDTO.getCountry(),
+        User user = User.Build(userRepository.findAll().size() + 1, userRegDTO.getName(), userRegDTO.getMobileNo(),
+                userRegDTO.getEmailId(), userRegDTO.getPassword(),userRegDTO.getCity(), userRegDTO.getState(),
                 userRegDTO.getZipCode(), userRegDTO.getAddress(), null);
         sendRegistrationMail(user);
         return userRepository.save(user);
     }
 
-   public void sendRegistrationMail(User user) {
+    public void sendRegistrationMail(User user) {
         emailSender.sendEmail(user.getEmailId(), "Registration",
                 "Congratulations!!, you have successfully registered to book store app," +
                         " Your registration Id is: " + user.getUserId());
@@ -61,7 +61,7 @@ public class UserService implements IUserService {
         user.setAddress(userRegistrationDTO.getAddress());
         user.setZipCode(userRegistrationDTO.getZipCode());
         user.setCity(userRegistrationDTO.getCity());
-        user.setCountry(userRegistrationDTO.getCountry());
+        user.setState(userRegistrationDTO.getState());
         return userRepository.save(user);
     }
 
@@ -74,4 +74,11 @@ public class UserService implements IUserService {
             throw new UserNotFoundException("User not found with id: " + userId);
         }
     }
+
+    @Override
+    public int getUserIdByUserName(String userName) {
+        int userId = userRepository.findByName(userName).getUserId();
+        return userId;
+    }
+
 }
